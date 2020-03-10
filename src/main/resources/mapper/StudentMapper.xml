@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="veu_demo.dao.StudentMapper">
+
+    <!--分页依赖查询-->
+    <select id="studentshow" resultType="Student">
+
+                    SELECT
+                      `studentNO`,
+                      `loginPwd`,
+                      `studentName`,
+                      `sex`,
+                      `gradeId`,
+                      `phone`,
+                      `address`,
+                      `bornDate`,
+                      `email`,
+                      `identityCarc`
+                    FROM
+                      `studen`.`student`
+                <if test="studentName !=null and studentName!=''">
+
+                  <where>
+
+                      studentName LIKE CONCAT('%',#{studentName},'%')
+
+                  </where>
+
+                </if>
+    </select>
+
+
+    <select id="stuent" resultType="Student">
+
+            SELECT
+          `studentNO`,
+          `loginPwd`,
+          `studentName`,
+          `sex`,
+          `gradeId`,
+          `phone`,
+          `address`,
+          `bornDate`,
+          `email`,
+          `identityCarc`
+        FROM
+          `studen`.`student`
+        WHERE studentName=#{studentName} AND loginPwd=#{loginPwd}
+
+    </select>
+
+    <insert id="addStudent">
+        INSERT INTO `studen`.`student` (
+          `loginPwd`,
+          `studentName`,
+          `sex`,
+          `gradeId`,
+          `phone`,
+          `address`,
+          `email`,
+          `identityCarc`
+        )
+        VALUES
+          (
+            #{loginPwd},
+            #{studentName},
+            #{sex},
+            #{gradeId},
+            #{phone},
+            #{address},
+            #{email},
+            #{identityCarc}
+          )
+    </insert>
+
+    <select id="studentid" resultType="Student">
+
+               SELECT
+              `studentNO`,
+              `loginPwd`,
+              `studentName`,
+              `sex`,
+              `gradeId`,
+              `phone`,
+              `address`,
+              `bornDate`,
+              `email`,
+              `identityCarc`
+            FROM
+              `studen`.`student`
+
+            WHERE studentNo=#{studentNO}
+
+
+
+    </select>
+
+    <update id="updatestudent">
+
+        UPDATE
+        `studen`.`student`
+        SET
+          `loginPwd` = #{loginPwd},
+          `studentName` = #{studentName},
+          `sex` = #{sex},
+          `gradeId` = #{gradeId},
+          `phone` = #{phone},
+          `address` = #{address},
+          `bornDate` = #{bornDate},
+          `email` = #{email},
+          `identityCarc` = #{identityCarc}
+        WHERE `studentNO` = #{studentNO}
+
+
+    </update>
+
+
+    <delete id="delstudent">
+
+        DELETE
+        FROM
+        `studen`.`student`
+        WHERE `studentNO` = #{studentNO}
+
+
+    </delete>
+</mapper>
